@@ -6,6 +6,7 @@
   "scripts": {
     "build": "remix build",
     "dev": "node -r dotenv/config node_modules/.bin/remix dev",
+    "dev:win": "node -r dotenv/config node_modules/@remix-run/dev/cli.js dev",
     "postinstall": "remix setup node",
     "lint:run": "eslint \"**/*.{js,ts,tsx}\"",
     "lint:fix": "eslint \"**/*.{js,ts,tsx}\" --fix"
@@ -18,6 +19,7 @@
     "dotenv": "^10.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
     "react-supabase": "^0.2.0",
     "remix": "^1.0.6",
     "remix-tailwind": "^0.2.0"

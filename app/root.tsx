@@ -18,8 +18,12 @@ export function loader() {
   return {
     ENV: {
       SUPABASE_URL: process.env.SUPABASE_URL,
-      SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY
-    }
+      SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+      CUSTODI_ENV: {
+        PROD: process.env.CUSTODI_ENV === "production",
+        DEV:  process.env.CUSTODI_ENV !== "production"
+      }
+    },
   };
 }
 
@@ -100,7 +104,7 @@ var Document = function ({
   title?: string;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="w-full h-full">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -108,7 +112,7 @@ var Document = function ({
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="w-full h-full font-sans">
         {children}
         <ScrollRestoration />
         <Scripts />

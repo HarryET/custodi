@@ -4,12 +4,14 @@
   "description": "",
   "license": "",
   "scripts": {
-    "build": "remix build",
-    "dev": "node -r dotenv/config node_modules/.bin/remix dev",
-    "dev:win": "node -r dotenv/config node_modules/@remix-run/dev/cli.js dev",
-    "postinstall": "remix setup node",
+    "build": "yarn css:build && remix build",
+    "dev": "concurrently \"yarn css:dev\" \"node -r dotenv/config node_modules/.bin/remix dev\"",
+    "dev:win": "concurrently \"yarn css:dev\" \"node -r dotenv/config node_modules/@remix-run/dev/cli.js dev\"",
+    "css:dev": "tailwindcss -o ./app/styles/tailwind.css --watch",
+    "css:build": "tailwindcss -o ./app/styles/tailwind.css",
     "lint:run": "eslint \"**/*.{js,ts,tsx}\"",
-    "lint:fix": "eslint \"**/*.{js,ts,tsx}\" --fix"
+    "lint:fix": "eslint \"**/*.{js,ts,tsx}\" --fix",
+    "postinstall": "remix setup node"
   },
   "dependencies": {
     "@remix-run/react": "^1.0.6",
@@ -28,6 +30,7 @@
     "@remix-run/dev": "^1.0.6",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
+    "concurrently": "^6.4.0",
     "postcss": "^8.4.4",
     "tailwindcss": "^2.2.19",
     "typescript": "^4.1.2"

@@ -12,7 +12,9 @@ import type { LinksFunction } from 'remix';
 import { createClient } from '@supabase/supabase-js';
 import { Provider } from 'react-supabase';
 
-export const links: LinksFunction = () => [{ rel: 'stylesheet', href: '/_internal/tailwindcss' }];
+import tailwindStyles from "./styles/tailwind.css";
+
+export const links: LinksFunction = () => [{ rel: 'stylesheet', href: tailwindStyles }];
 
 export function loader() {
   return {

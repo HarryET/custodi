@@ -6,16 +6,27 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
+  useLoaderData,
 } from 'remix';
 import type { LinksFunction } from 'remix';
 import { createClient } from '@supabase/supabase-js';
 import { Provider } from 'react-supabase';
 
-const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!)
-
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: '/_internal/tailwindcss' }];
 
+export function loader() {
+  return {
+    ENV: {
+      SUPABASE_URL: process.env.SUPABASE_URL,
+      SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY
+    }
+  };
+}
+
 export default function App() {
+  const data = useLoaderData();
+  const supabase = createClient(data.ENV.SUPABASE_URL!, data.ENV.SUPABASE_ANON_KEY!)
+
   return (
     <Document>
       <Provider value={supabase}>

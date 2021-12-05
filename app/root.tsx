@@ -7,14 +7,17 @@ import {
   ScrollRestoration,
   useCatch,
   useLoaderData,
-} from 'remix';
-import type { LinksFunction } from 'remix';
-import { createClient } from '@supabase/supabase-js';
-import { Provider } from 'react-supabase';
+} from "remix";
+import type { LinksFunction } from "remix";
+import { createClient } from "@supabase/supabase-js";
+import { Provider } from "react-supabase";
 
 import tailwindStyles from "./styles/tailwind.css";
+import { UserContextProvider } from "./useUser";
 
-export const links: LinksFunction = () => [{ rel: 'stylesheet', href: tailwindStyles }];
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: tailwindStyles },
+];
 
 export function loader() {
   return {
@@ -23,22 +26,41 @@ export function loader() {
       SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
       CUSTODI_ENV: {
         PROD: process.env.CUSTODI_ENV === "production",
-        DEV:  process.env.CUSTODI_ENV !== "production"
-      }
+        DEV: process.env.CUSTODI_ENV !== "production",
+      },
     },
   };
 }
 
 export default function App() {
   const data = useLoaderData();
-  const supabase = createClient(data.ENV.SUPABASE_URL!, data.ENV.SUPABASE_ANON_KEY!)
+  const supabase = createClient(
+    data.ENV.SUPABASE_URL!,
+    data.ENV.SUPABASE_ANON_KEY!
+  );
 
   return (
     <Document>
       <Provider value={supabase}>
-        <Outlet />
+        <UserContextProvider>
+          <Outlet />
+        </UserContextProvider>
       </Provider>
+      <EnvironmentSetter env={data.ENV} />
     </Document>
+  );
+}
+
+/**
+ This component loads environment variables into window.ENV 
+ */
+function EnvironmentSetter({ env }: { env: { [key: string]: string } }) {
+  return (
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `window.ENV = ${JSON.stringify(env)}`,
+      }}
+    />
   );
 }
 
@@ -48,15 +70,15 @@ export var ErrorBoundary = function ({ error }: { error: Error }) {
   console.error(error);
   return (
     <Document title="Error!">
-        <div>
-          <h1>There was an error</h1>
-          <p>{error.message}</p>
-          <hr />
-          <p>
-            Hey, developer, you should replace this with what you want your
-            users to see.
-          </p>
-        </div>
+      <div>
+        <h1>There was an error</h1>
+        <p>{error.message}</p>
+        <hr />
+        <p>
+          Hey, developer, you should replace this with what you want your users
+          to see.
+        </p>
+      </div>
     </Document>
   );
 };
@@ -89,9 +111,7 @@ export var CatchBoundary = function () {
   return (
     <Document title={`${caught.status} ${caught.statusText}`}>
       <h1>
-        {caught.status}
-        :
-        {caught.statusText}
+        {caught.status}:{caught.statusText}
       </h1>
       {message}
     </Document>
@@ -118,7 +138,7 @@ var Document = function ({
         {children}
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === 'development' && <LiveReload />}
+        {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
   );

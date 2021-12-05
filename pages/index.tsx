@@ -6,8 +6,9 @@ import { useAuth } from '../hooks/useAuth'
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const {session, user} = useAuth();
+  const { session } = useAuth();
 
+  // TODO add landing screen?
   useEffect(() => {
     if(session != null) {
       router.push("/app")

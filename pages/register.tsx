@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import toast from 'react-hot-toast';
 import { useSignUp } from 'react-supabase';
 import Link from "next/link";
+import OauthProvider from '../components/OauthProvider';
 
 type LoginInputs = {
     email: string,
@@ -65,31 +66,46 @@ const Login: NextPage = () => {
             <Head>
                 <title>Custodi Registration</title>
             </Head>
-            <div className="w-full h-full sm:flex sm:flex-col sm:justify-center sm:items-center">
-                <div className="h-full flex flex-col items-start justify-between mx-6 sm:w-1/2 lg:w-1/4 sm:justify-center">
+            <div className="w-full h-full sm:flex sm:flex-col sm:justify-center sm:items-center text-gray-800">
+                <div className="h-full flex flex-col items-start justify-between mx-6 sm:w-1/2 lg:w-2/6 sm:justify-center">
                     <div>
-                        <h1 className="text-5xl font-bold mt-6 sm:mb-6">Register</h1>
-                        {/* TODO Description needed here? */}
+                        <h1 className="text-5xl font-bold mt-6 sm:mb-1">Create an account</h1>
+                        <div className='flex w-max mx-auto mb-3'>
+                            <p className="mr-1">Already a member?</p>
+                            <Link href="/login">
+                                <a className="text-indigo-500 hover:text-indigo-600">Login</a>
+                            </Link>
+                        </div>
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center content-center mb-6">
-                        <div className="w-full mb-2">
-                            <input type="email" placeholder="Email" className="w-full" {...register("email", { required: true })} />
+                        <div className="flex">
+                            <div className="w-full mb-3 mr-1">
+                                <label htmlFor="fname">First Name</label>
+                                <input type="text" className="fname w-full rounded-xl" {...register("email", { required: true })} />
+                                {errors.email && <span>{EmailErrorMessageForType(errors.email.type)}</span>}
+                            </div>
+                            <div className="w-full mb-3 ml-1">
+                                <label htmlFor="lname">Last Name</label>
+                                <input type="text" className="lname w-full rounded-xl" {...register("password", { required: true, minLength: 4, maxLength: 24 })} />
+                                {errors.password && <span>{PasswordErrorMessageForType(errors.password.type)}</span>}
+                            </div>
+                        </div>
+                        <div className="w-full mb-3">
+                            <label htmlFor="email">Email</label>
+                            <input type="email" className="email w-full rounded-xl" {...register("email", { required: true })} />
                             {errors.email && <span>{EmailErrorMessageForType(errors.email.type)}</span>}
                         </div>
-                        <div className="w-full">
-                            <input type="password" placeholder="Password" className="w-full" {...register("password", { required: true, minLength: 4, maxLength: 24 })} />
+                        <div className="w-full mb-3">
+                            <label htmlFor="password">Password</label>
+                            <input type="password" className="password w-full rounded-xl" {...register("password", { required: true, minLength: 4, maxLength: 24 })} />
                             {errors.password && <span>{PasswordErrorMessageForType(errors.password.type)}</span>}
                         </div>
                         <div className="w-full flex flex-col items-end">
-                            <input type="submit" value="Login" className="w-full mt-6 p-2 bg-blue-500 text-gray-50" />
-                            <p className="text-gray-500 mt-2">
-                                Already got an account? 
-                                <span className="text-blue-500 ml-1 hover:underline">
-                                    <Link href="/login">Login now!</Link>
-                                </span>
-                            </p>
+                            <input type="submit" value="Login" className="w-full mt-6 p-2 bg-indigo-500 text-gray-50 rounded-xl hover:bg-indigo-600 cursor-pointer transition duration-500 ease-in-out" />
                         </div>
                     </form>
+                    <hr />
+                    <OauthProvider />
                 </div>
             </div>
         </>

@@ -88,6 +88,9 @@ const Login: NextPage = () => {
                             <input type="password" className="password w-full rounded-xl" {...register("password", { required: true, minLength: 4, maxLength: 24 })} />
                             {errors.password && <span>{PasswordErrorMessageForType(errors.password.type)}</span>}
                         </div>
+                        <Link href="/">
+                            <a className='text-primary text-sm place-self-end'>Forgot password?</a>
+                        </Link>
                         <div className="w-full flex flex-col items-end">
                             <input type="submit" value="Login" className="w-full mt-6 p-2 bg-primary text-gray-50 rounded-xl hover:bg-secondary cursor-pointer transition duration-500 ease-in-out" />
                         </div>

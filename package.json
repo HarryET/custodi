@@ -5,7 +5,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tsc": "tsc",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.28.5",
@@ -28,6 +30,7 @@
     "postcss": "^8.4.4",
     "prettier": "2.5.1",
     "tailwindcss": "^2.2.19",
-    "typescript": "^4.5.2"
+    "typescript": "4.5.2",
+    "husky": "^7.0.0"
   }
 }

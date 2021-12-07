@@ -72,11 +72,11 @@ const Login: NextPage = () => {
                         <div className='flex w-max mx-auto mb-3'>
                             <p className="mr-1">Dont&apos;t have an account?</p>
                             <Link href="/register">
-                                <a className="text-indigo-500 hover:text-indigo-600">Sign up</a>
+                                <a className="text-primary hover:text-secondary">Sign up</a>
                             </Link>
                         </div>
                     </div>
-                    <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center content-center mb-6">
+                    <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center content-center">
                         <div className="w-full mb-3">
                             <label htmlFor="email">Email</label>
                             <input type="email" className="email w-full rounded-xl" {...register("email", { required: true })} />
@@ -89,10 +89,9 @@ const Login: NextPage = () => {
                             {errors.password && <span>{PasswordErrorMessageForType(errors.password.type)}</span>}
                         </div>
                         <div className="w-full flex flex-col items-end">
-                            <input type="submit" value="Login" className="w-full mt-6 p-2 bg-indigo-500 text-gray-50 rounded-xl hover:bg-indigo-600 cursor-pointer transition duration-500 ease-in-out" />
+                            <input type="submit" value="Login" className="w-full mt-6 p-2 bg-primary text-gray-50 rounded-xl hover:bg-secondary cursor-pointer transition duration-500 ease-in-out" />
                         </div>
                     </form>
-                    <hr className="mb-3" />
                     <OauthProvider />
                 </div>
             </div>

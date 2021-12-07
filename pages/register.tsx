@@ -73,7 +73,7 @@ const Login: NextPage = () => {
                         <div className='flex w-max mx-auto mb-3'>
                             <p className="mr-1">Already a member?</p>
                             <Link href="/login">
-                                <a className="text-indigo-500 hover:text-indigo-600">Login</a>
+                                <a className="text-primary hover:text-secondary">Login</a>
                             </Link>
                         </div>
                     </div>
@@ -101,10 +101,9 @@ const Login: NextPage = () => {
                             {errors.password && <span>{PasswordErrorMessageForType(errors.password.type)}</span>}
                         </div>
                         <div className="w-full flex flex-col items-end">
-                            <input type="submit" value="Login" className="w-full mt-6 p-2 bg-indigo-500 text-gray-50 rounded-xl hover:bg-indigo-600 cursor-pointer transition duration-500 ease-in-out" />
+                            <input type="submit" value="Login" className="w-full mt-6 p-2 bg-primary text-gray-50 rounded-xl hover:bg-secondary cursor-pointer transition duration-500 ease-in-out" />
                         </div>
                     </form>
-                    <hr />
                     <OauthProvider />
                 </div>
             </div>

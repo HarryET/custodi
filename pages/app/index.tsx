@@ -5,12 +5,12 @@ import { useEffect } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 
 const Home: NextPage = () => {
-  const router = useRouter();
-  const { session, user } = useAuth();
+  const router = useRouter()
+  const { session } = useAuth()
 
   useEffect(() => {
-    if(session == null) {
-      router.push("/login")
+    if (session == null) {
+      router.push('/login')
     }
   })
 
@@ -20,7 +20,7 @@ const Home: NextPage = () => {
         <title>Custodi</title>
       </Head>
       <div>
-          <p>This page will have all your organizations and their projects.</p>
+        <p>This page will have all your organizations and their projects.</p>
       </div>
     </>
   )

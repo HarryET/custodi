@@ -47,10 +47,6 @@ const Login: NextPage = () => {
     router.push('/login')
   }
 
-  const handleProviderClick = (provider: Provider) => {
-    signUp({ provider }, {})
-  }
-
   return (
     <>
       <Head>
@@ -117,7 +113,7 @@ const Login: NextPage = () => {
               />
             </div>
           </form>
-          <OauthProviders onProviderClick={handleProviderClick} />
+          <OauthProviders />
         </div>
       </div>
     </>

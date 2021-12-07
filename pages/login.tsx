@@ -27,6 +27,8 @@ const Login: NextPage = () => {
     const { error } = await signIn({
       email: data.email,
       password: data.password,
+    }, {
+      redirectTo: window.location.hostname
     })
 
     if (error) {
@@ -50,10 +52,10 @@ const Login: NextPage = () => {
         <title>Custodi Login</title>
       </Head>
       <div className="w-full h-full sm:flex sm:flex-col sm:justify-center sm:items-center text-gray-800">
-        <div className="h-full flex flex-col justify-between mx-6 sm:w-1/2 lg:w-2/6 sm:justify-center">
+        <div className="h-full flex flex-col items-center justify-center mx-6 sm:w-1/2 lg:w-2/6">
           <div>
             <h1 className="text-5xl font-bold w-max mx-auto sm:mb-1">Login</h1>
-            <div className="flex w-max mx-auto mb-3">
+            <div className="flex w-max mx-auto mb-3 mt-6">
               <p className="mr-1">Dont&apos;t have an account?</p>
               <Link href="/register">
                 <a className="text-primary hover:text-secondary">Sign Up</a>
@@ -62,7 +64,7 @@ const Login: NextPage = () => {
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-full flex flex-col items-center content-center"
+            className="w-full flex flex-col items-center content-center mb-6"
           >
             <div className="w-full mb-3">
               <label htmlFor="email">Email</label>
@@ -99,6 +101,11 @@ const Login: NextPage = () => {
               />
             </div>
           </form>
+          <div className="flex flex-row w-full items-center justify-center">
+            <div className="w-full h-0.5 bg-gray-200" />
+            <p className="w-full text-center text-gray-500" >or login with</p>
+            <div className="w-full h-0.5 bg-gray-200" />
+          </div>
           <OauthProviders />
         </div>
       </div>

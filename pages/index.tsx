@@ -5,17 +5,17 @@ import { useEffect } from 'react'
 import { useAuth } from '../hooks/useAuth'
 
 const Home: NextPage = () => {
-  const router = useRouter();
-  const { session } = useAuth();
+  const router = useRouter()
+  const { session } = useAuth()
 
   // TODO add landing screen?
   useEffect(() => {
-    if(session != null) {
-      router.push("/app")
+    if (session != null) {
+      router.push('/app')
     } else {
-      router.push("/login")
+      router.push('/login')
     }
-  })
+  }, [])
 
   return (
     <>

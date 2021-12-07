@@ -5,7 +5,9 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useSignUp } from 'react-supabase'
 import Link from 'next/link'
-import OauthProvider from '../components/OauthProvider'
+import OauthProviders from '../components/OauthProvider'
+import { emailErrorMessageForType, passwordErrorMessageForType } from './login'
+import { Provider } from '@supabase/gotrue-js'
 
 type LoginInputs = {
   email: string
@@ -18,10 +20,11 @@ const Login: NextPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<LoginInputs>()
+
   const [{}, signUp] = useSignUp()
+
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
     const { error } = await signUp({
       email: data.email,
@@ -44,26 +47,8 @@ const Login: NextPage = () => {
     router.push('/login')
   }
 
-  const PasswordErrorMessageForType = (type: string) => {
-    switch (type) {
-      case 'required':
-        return 'Password is required'
-      case 'minLength':
-        return 'Password must be at least 4 characters long'
-      case 'maxLength':
-        return 'Password must be shorter than 24 characters long'
-      default:
-        return 'Please enter a valid password!'
-    }
-  }
-
-  const EmailErrorMessageForType = (type: string) => {
-    switch (type) {
-      case 'required':
-        return 'Email is required'
-      default:
-        return 'Please enter a valid email!'
-    }
+  const handleProviderClick = (provider: Provider) => {
+    signUp({ provider }, {})
   }
 
   return (
@@ -93,7 +78,7 @@ const Login: NextPage = () => {
                 className="email w-full rounded-xl border-gray-300"
                 {...register('email', { required: true })}
               />
-              {errors.email && <span>{EmailErrorMessageForType(errors.email.type)}</span>}
+              {errors.email && <span>{emailErrorMessageForType(errors.email.type)}</span>}
             </div>
             <div className="w-full mb-3">
               <label htmlFor="password">Password</label>
@@ -106,7 +91,7 @@ const Login: NextPage = () => {
                   maxLength: 24,
                 })}
               />
-              {errors.password && <span>{PasswordErrorMessageForType(errors.password.type)}</span>}
+              {errors.password && <span>{passwordErrorMessageForType(errors.password.type)}</span>}
             </div>
             <div className="place-self-start">
               <input
@@ -132,7 +117,7 @@ const Login: NextPage = () => {
               />
             </div>
           </form>
-          <OauthProvider />
+          <OauthProviders onProviderClick={handleProviderClick} />
         </div>
       </div>
     </>

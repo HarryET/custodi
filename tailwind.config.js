@@ -8,6 +8,7 @@ module.exports = {
         secondary: '#674ADA',
         discord: "#5865f2",
         twitter: "#1da1f2",
+        "supabase": "#24B47E"
       },
       dropShadow: {
          '3xl': '0 3px 4px rgba(0, 0, 0, 0.25)'

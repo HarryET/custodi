@@ -46,7 +46,7 @@ const ProviderButton = ({ provider, onClick }: ProviderButtonProps) => {
 
   return (
     <button
-      className={`filter drop-shadow-3xl rounded-lg p-2.5 bg-${backgroundColor}`}
+      className={`filter drop-shadow-3xl rounded-lg p-2.5 ${backgroundColor}`}
       onClick={() => onClick(provider)}
     >
       {renderIcon()}
@@ -55,11 +55,11 @@ const ProviderButton = ({ provider, onClick }: ProviderButtonProps) => {
 }
 
 const backgroundColorByProvider: { [k in Provider]: string } = {
-  google: 'white',
-  discord: 'discord',
-  github: 'black',
-  gitlab: 'white',
-  twitter: 'twitter',
+  google: 'bg-white',
+  discord: 'bg-discord',
+  github: 'bg-black',
+  gitlab: 'bg-white',
+  twitter: 'bg-twitter',
 }
 
 export default OauthProviders

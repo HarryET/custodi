@@ -1,0 +1,16 @@
+name: Check Code with Prettier
+
+on:
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+      - name: Run prettier
+        run: |-
+          npx prettier -c '/**/*.{js,jsx,ts,tsx,md,mdx,json}' 

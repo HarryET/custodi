@@ -15,8 +15,8 @@ const Register: NextPage = () => {
         <div className="h-full flex flex-col items-center justify-center mx-6 sm:w-1/2 lg:w-2/6">
           <div className="w-full flex flex-col items-center justify-center">
             <h1 className="text-7xl font-bold text-center mt-6 sm:mb-1">404</h1>
-            <p className="mb-3 font-bold">Uh Oh! There’s nothing here!</p>
-            <Image src="/404.png" width={400} height={307} alt="404" />
+            <p className="mb-3 font-bold">Uh Oh! There&apos;s nothing here!</p>
+            <Image src="/assets/404.svg" width={400} height={307} alt="404" />
             <div className="flex mt-3">
               <p className="font-bold">Go back</p>
               <Link href="/">

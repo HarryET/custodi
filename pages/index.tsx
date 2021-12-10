@@ -22,12 +22,12 @@ const Home: NextPage = () => {
             </p>
             <div className="flex justify-center md:flex-col lg:flex-row">
               <Link href="/login" passHref>
-                <button className="inline-flex text-white justify-center bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-secondary rounded text-lg md:mb-2">
+                <button className="inline-flex text-white justify-center bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-secondary rounded text-lg xs:text-sm md:mb-2 lg:mb-0">
                   Get Started
                 </button>
               </Link>
               <Link href="/doc" passHref>
-                <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg md:ml-0">
+                <button className="inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg xs:ml-2 xs:text-sm md:ml-0 lg:ml-4 ">
                   Documentation
                 </button>
               </Link>

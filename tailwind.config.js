@@ -21,6 +21,9 @@ module.exports = {
         imgSM: '20rem',
       },
     },
+    screens: {
+      xs: '400px',
+    },
   },
   variants: {
     extend: {},

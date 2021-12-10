@@ -1,6 +1,6 @@
+import { PencilIcon } from '@heroicons/react/outline'
 import React, { useState } from 'react'
 import Button from '../components/Button'
-import PencilIcon from '../components/Icons/PencilIcon'
 import Input from '../components/Input'
 import Modal from '../components/Modal'
 

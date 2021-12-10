@@ -14,8 +14,13 @@ module.exports = {
         "supabase": "#24B47E"
       },
       dropShadow: {
-         '3xl': '0 3px 4px rgba(0, 0, 0, 0.25)'
-       }
+        '3xl': '0 3px 4px rgba(0, 0, 0, 0.25)'
+       },
+       spacing: {
+        imgSM: '31.25rem',
+        imgMD: '38rem',
+        imgLG: '52rem',
+      }
     },
   },
   variants: {

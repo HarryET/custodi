@@ -9,7 +9,7 @@ const OauthProviders = () => {
   const [{}, signIn] = useSignIn()
 
   const handleProviderClick = (provider: Provider) => {
-    signIn({ provider }, {})
+    signIn({ provider }, { redirectTo: '/' })
   }
 
   return (
@@ -46,7 +46,7 @@ const ProviderButton = ({ provider, onClick }: ProviderButtonProps) => {
 
   return (
     <button
-      className={`filter drop-shadow-3xl rounded-lg p-2.5 ${backgroundColor}`}
+      className={`filter drop-shadow-3xl rounded-lg p-2.5 ${backgroundColor} transition duration-300 ease-in-out hover:opacity-80`}
       onClick={() => onClick(provider)}
     >
       {renderIcon()}

@@ -10,11 +10,13 @@ export const handler: NextApiHandler = async (req, res) => {
     const apiKey = req.headers['x-api-key']
     if (!apiKey) return res.status(401).send('API Key missing')
 
-    const project = await supabaseAdmin.from('projects').select().eq('api_key', apiKey).single()
+    const projectRes = await supabaseAdmin.from('projects').select().eq('api_key', apiKey).single()
 
-    if (project.error) {
+    if (projectRes.error) {
       return res.status(401).send('Invalid API Key')
     }
+
+    const project = projectRes.data
 
     const validationRes = EventCreationRequest.safeParse(req.body)
 
@@ -37,7 +39,7 @@ export const handler: NextApiHandler = async (req, res) => {
     if (!eventGroupRes.data?.length) {
       const newEventGroupRes = await supabaseAdmin
         .from('event_groups')
-        .insert(newEvent, { returning: 'representation' })
+        .insert({ ...newEvent, project_id: project.id }, { returning: 'representation' })
       if (!newEventGroupRes.error) eventGroup = newEventGroupRes.data[0]
     } else {
       eventGroup = eventGroupRes.data[0]

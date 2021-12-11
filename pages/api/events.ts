@@ -2,6 +2,7 @@ import { NextApiHandler } from 'next'
 import { supabaseAdmin } from '../../utils/supabase'
 import { z } from 'zod'
 
+//TODO: Add types
 export const handler: NextApiHandler = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).end()
 

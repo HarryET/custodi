@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 import Link from 'next/link'
 import Header from '../components/Header'
 
@@ -33,7 +34,7 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 grid justify-items-center">
-            <img
+            <Image
               className="object-cover object-center rounded h-imgSM"
               alt="hero"
               src="/assets/product-demo-img.jpg"

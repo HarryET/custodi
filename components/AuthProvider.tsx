@@ -1,5 +1,4 @@
 import { Session, User } from '@supabase/gotrue-js'
-import { useRouter } from 'next/router'
 import { createContext, useEffect, useState } from 'react'
 import { useAuthStateChange, useClient } from 'react-supabase'
 

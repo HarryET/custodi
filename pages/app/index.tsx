@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import React, { useEffect } from 'react'
-import Router, { useRouter } from 'next/router'
+import React from 'react'
+import Router from 'next/router'
 import Link from 'next/link'
 import { useQuery } from 'react-query'
 import { useClient } from 'react-supabase'

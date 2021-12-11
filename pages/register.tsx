@@ -130,9 +130,7 @@ const Register: NextPage = () => {
                 </label>
               </div>
               {errors.tos && (
-                <span className="text-error font-bold mt-2">
-                  {tosErrorMessageForType(errors.tos.type)}
-                </span>
+                <span className="text-error font-bold mt-2">{tosErrorMessageForType()}</span>
               )}
             </div>
             <div className="w-full flex flex-col items-end">

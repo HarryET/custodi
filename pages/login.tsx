@@ -6,7 +6,8 @@ import toast from 'react-hot-toast'
 import { useSignIn } from 'react-supabase'
 import Link from 'next/link'
 import OauthProviders from '../components/OauthProvider'
-import { Provider } from '@supabase/gotrue-js'
+import { useAuth } from '../hooks/useAuth'
+import { useEffect } from 'react'
 
 type LoginInputs = {
   email: string
@@ -15,7 +16,10 @@ type LoginInputs = {
 
 const Login: NextPage = () => {
   const router = useRouter()
-
+  const { isLoading: isUserLoading, session } = useAuth()
+  useEffect(() => {
+    if (!isUserLoading && session) router.replace('/app')
+  }, [isUserLoading, router, session])
   const {
     register,
     handleSubmit,
@@ -24,12 +28,15 @@ const Login: NextPage = () => {
   const [{}, signIn] = useSignIn()
 
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
-    const { error } = await signIn({
-      email: data.email,
-      password: data.password,
-    }, {
-      redirectTo: window.location.hostname
-    })
+    const { error } = await signIn(
+      {
+        email: data.email,
+        password: data.password,
+      },
+      {
+        redirectTo: window.location.hostname,
+      }
+    )
 
     if (error) {
       toast.error(error.message, {
@@ -103,7 +110,7 @@ const Login: NextPage = () => {
           </form>
           <div className="flex flex-row w-full items-center justify-center">
             <div className="w-full h-0.5 bg-gray-200" />
-            <p className="w-full text-center text-gray-500" >or login with</p>
+            <p className="w-full text-center text-gray-500">or login with</p>
             <div className="w-full h-0.5 bg-gray-200" />
           </div>
           <OauthProviders />

@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import Icon from '../public/Icon.png'
 import { UserCircleIcon, LogoutIcon } from '@heroicons/react/outline'
+import { useClient } from 'react-supabase'
 
 export default function NavBar() {
+  const supabase = useClient()
   const [optionsMenu, setoptionsMenu] = useState(false)
   return (
     <div className="flex flex-row justify-between m-4 text-gray-800 border-b">
@@ -39,7 +41,12 @@ export default function NavBar() {
               <Link href="/">
                 <a className="flex">
                   <LogoutIcon className="h-6 w-6" />
-                  <span className="font-semibold text-sm ml-2">Logout</span>
+                  <span
+                    className="font-semibold text-sm ml-2"
+                    onClick={() => supabase.auth.signOut()}
+                  >
+                    Logout
+                  </span>
                 </a>
               </Link>
             </div>

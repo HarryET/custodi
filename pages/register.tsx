@@ -7,6 +7,8 @@ import { useSignUp } from 'react-supabase'
 import Link from 'next/link'
 import OauthProviders from '../components/OauthProvider'
 import { emailErrorMessageForType, passwordErrorMessageForType } from './login'
+import { useAuth } from '../hooks/useAuth'
+import { useEffect } from 'react'
 
 type RegisterInputs = {
   email: string
@@ -14,12 +16,16 @@ type RegisterInputs = {
   tos: boolean
 }
 
-export const tosErrorMessageForType = (type: string) => {
-  return "Please accept the TOS."
+export const tosErrorMessageForType = () => {
+  return 'Please accept the TOS.'
 }
 
 const Register: NextPage = () => {
   const router = useRouter()
+  const { isLoading: isUserLoading, session } = useAuth()
+  useEffect(() => {
+    if (!isUserLoading && session) router.replace('/app')
+  }, [isUserLoading, router, session])
 
   const {
     register,
@@ -30,12 +36,15 @@ const Register: NextPage = () => {
   const [{}, signUp] = useSignUp()
 
   const onSubmit: SubmitHandler<RegisterInputs> = async (data) => {
-    const { error } = await signUp({
-      email: data.email,
-      password: data.password,
-    }, {
-      redirectTo: window.location.hostname
-    })
+    const { error } = await signUp(
+      {
+        email: data.email,
+        password: data.password,
+      },
+      {
+        redirectTo: window.location.hostname,
+      }
+    )
 
     if (error) {
       toast.error(error.message, {
@@ -80,7 +89,11 @@ const Register: NextPage = () => {
                 className="email w-full rounded-xl border-gray-300"
                 {...register('email', { required: true })}
               />
-              {errors.email && <span className="text-error font-bold mt-2">{emailErrorMessageForType(errors.email.type)}</span>}
+              {errors.email && (
+                <span className="text-error font-bold mt-2">
+                  {emailErrorMessageForType(errors.email.type)}
+                </span>
+              )}
             </div>
             <div className="w-full mb-3">
               <label htmlFor="password">Password</label>
@@ -93,10 +106,14 @@ const Register: NextPage = () => {
                   maxLength: 24,
                 })}
               />
-              {errors.password && <span className="text-error font-bold mt-2">{passwordErrorMessageForType(errors.password.type)}</span>}
+              {errors.password && (
+                <span className="text-error font-bold mt-2">
+                  {passwordErrorMessageForType(errors.password.type)}
+                </span>
+              )}
             </div>
             <div className="w-full flex flex-col items-start">
-            <div className="place-self-start">
+              <div className="place-self-start">
                 <input
                   type="checkbox"
                   className="rounded-md border-primary cursor-pointer focus:outline-none focus:ring-primary"
@@ -112,7 +129,11 @@ const Register: NextPage = () => {
                   </Link>
                 </label>
               </div>
-              {errors.tos && <span className="text-error font-bold mt-2">{tosErrorMessageForType(errors.tos.type)}</span>}
+              {errors.tos && (
+                <span className="text-error font-bold mt-2">
+                  {tosErrorMessageForType(errors.tos.type)}
+                </span>
+              )}
             </div>
             <div className="w-full flex flex-col items-end">
               <input
@@ -124,7 +145,7 @@ const Register: NextPage = () => {
           </form>
           <div className="flex flex-row w-full items-center justify-center">
             <div className="w-full h-0.5 bg-gray-200" />
-            <p className="w-full text-center text-gray-500" >or sign up with</p>
+            <p className="w-full text-center text-gray-500">or sign up with</p>
             <div className="w-full h-0.5 bg-gray-200" />
           </div>
           <OauthProviders />

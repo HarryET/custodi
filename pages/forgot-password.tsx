@@ -32,11 +32,6 @@ const ForgotPassword: NextPage = () => {
       })
       return
     }
-
-    // toast.success('Success, please check your email.', {
-    //   position: 'top-right',
-    //   icon: '✅',
-    // })
     setShowForm(false)
   }
 
@@ -46,12 +41,16 @@ const ForgotPassword: NextPage = () => {
 
   const resetPasswordFormView = (
     <div className="flex flex-col items-center justify-center ml-auto mr-auto m-28">
-      <h1 className="text-4xl font-bold w-max mb-11">Forgot Password?</h1>
-      <p className="text-2xl">Please enter your registered email address.</p>
-      <p className="text-2xl mb-11">We’ll send instructions to help reset your password.</p>
+      <h1 className="text-3xl lg:text-4xl font-bold w-max mb-11">Forgot Password?</h1>
+      <p className="text-center text-sm sm:text-xl lg:text-2xl">
+        Please enter your registered email address.
+      </p>
+      <p className="text-center text-sm sm:text-xl lg:text-2xl mb-11">
+        We’ll send instructions to help reset your password.
+      </p>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex flex-col items-center content-center mb-6"
+        className="sm:w-9/12 lg:w-full flex flex-col items-center content-center mb-6"
       >
         <div className="w-full mb-3">
           <label htmlFor="email">Email</label>
@@ -66,7 +65,7 @@ const ForgotPassword: NextPage = () => {
           <input
             type="submit"
             value="Send Reset Instructions"
-            className="w-full text-2xl mt-5 h-14 p-2 bg-primary text-gray-50 rounded-xl hover:bg-secondary cursor-pointer transition duration-500 ease-in-out"
+            className="w-full text-xl lg:text-2xl mt-5 h-14 p-2 bg-primary text-gray-50 rounded-xl hover:bg-secondary cursor-pointer transition duration-500 ease-in-out"
           />
         </div>
       </form>
@@ -75,8 +74,8 @@ const ForgotPassword: NextPage = () => {
 
   const emailSentView = (
     <div className="flex flex-col items-center justify-center ml-auto mr-auto m-28">
-      <h1 className="text-4xl font-bold w-max mb-11">Successfully Sent!</h1>
-      <p className="text-2xl">
+      <h1 className="text-3xl lg:text-4xl font-bold w-max mb-11">Successfully Sent!</h1>
+      <p className="text-center text-sm sm:text-xl lg:text-2xl">
         Please check your email for instructions on resetting your password.
       </p>
     </div>
@@ -87,10 +86,10 @@ const ForgotPassword: NextPage = () => {
       <div className="flex h-screen flex-col m-7">
         <div
           onClick={returnToLogin}
-          className="flex justify-items-center ml-44 mt-24 cursor-pointer"
+          className="flex justify-items-center ml-8 mt-24 cursor-pointer md:ml-20 lg:ml-44"
         >
           <ArrowLeftIcon className="h-8 w-8 " />
-          <span className="font-semibold text-lg ml-16 ">Back to Login</span>
+          <span className="font-semibold text-lg ml-8 md:ml-16 ">Back to Login</span>
         </div>
         {showForm ? resetPasswordFormView : emailSentView}
       </div>

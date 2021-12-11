@@ -13,17 +13,16 @@ const ResetPasswordForm: NextPage = () => {
   const supabaseClient = useClient()
   const router = useRouter()
 
-  const { query } = useRouter()
-
-  const accessToken = String(query.access_token)
   const {
     register,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<ResetPasswordInputs>()
 
   const onSubmit: SubmitHandler<ResetPasswordInputs> = async (data) => {
-    const { error } = await supabaseClient.auth.api.updateUser(accessToken, {
+    const session = supabaseClient.auth.session()
+    const { error } = await supabaseClient.auth.api.updateUser(String(session?.access_token), {
       password: data.newPassword,
     })
     if (error) {
@@ -36,7 +35,7 @@ const ResetPasswordForm: NextPage = () => {
 
     toast.success('Password succesfully updated.', {
       position: 'top-right',
-      icon: '⚠️',
+      icon: '✅',
     })
 
     router.push('/login')
@@ -44,9 +43,9 @@ const ResetPasswordForm: NextPage = () => {
 
   return (
     <div className="flex h-screen flex-col m-7">
-      <div className="flex flex-col items-center justify-center ml-auto mr-auto m-28">
-        <h1 className="text-4xl font-bold w-max mb-11">Reset Password</h1>
-        <div>{accessToken}</div>
+      <div className="flex flex-col w-11/12 md:w-1/2 lg:w-1/3 items-center justify-center ml-auto mr-auto m-28">
+        <h1 className="text-3xl lg:text-4xl font-bold w-max mb-11">Reset Password</h1>
+
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full flex flex-col items-center content-center mb-6"
@@ -56,7 +55,12 @@ const ResetPasswordForm: NextPage = () => {
             <input
               type="password"
               className="password w-full mt-2 h-14 rounded-xl border-gray-300"
-              {...register('newPassword', { required: true, minLength: 4, maxLength: 24 })}
+              {...register('newPassword', {
+                required: true,
+                minLength: 4,
+                maxLength: 24,
+                validate: (value) => value === getValues('confirmNewPassword'),
+              })}
             />
             {errors.newPassword && (
               <span>{passwordErrorMessageForType(errors.newPassword.type)}</span>
@@ -67,7 +71,10 @@ const ResetPasswordForm: NextPage = () => {
             <input
               type="password"
               className="password w-full mt-2 h-14 rounded-xl border-gray-300"
-              {...register('newPassword', { required: true, minLength: 4, maxLength: 24 })}
+              {...register('confirmNewPassword', {
+                required: true,
+                validate: (value) => value === getValues('newPassword'),
+              })}
             />
             {errors.confirmNewPassword && (
               <span>{passwordErrorMessageForType(errors.confirmNewPassword.type)}</span>
@@ -77,7 +84,7 @@ const ResetPasswordForm: NextPage = () => {
             <input
               type="submit"
               value="Update Password"
-              className="w-full text-2xl mt-5 h-14 p-2 bg-primary text-gray-50 rounded-xl hover:bg-secondary cursor-pointer transition duration-500 ease-in-out"
+              className="w-full text-xl lg:text-2xl mt-5 h-14 p-2 bg-primary text-gray-50 rounded-xl hover:bg-secondary cursor-pointer transition duration-500 ease-in-out"
             />
           </div>
         </form>
@@ -96,6 +103,8 @@ export const passwordErrorMessageForType = (type: string) => {
       return 'Password must be at least 4 characters long'
     case 'maxLength':
       return 'Password must be shorter than 24 characters long'
+    case 'validate':
+      return 'Passwords do not match'
     default:
       return 'Please enter a valid password!'
   }

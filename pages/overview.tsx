@@ -1,28 +1,18 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
-import Router, { useRouter } from 'next/router'
-import { useAuth } from '../../hooks/useAuth'
-import React, { useState, useEffect } from 'react'
-import NavBar from '../../components/NavBar'
+import React, { useState } from 'react'
+import Router from 'next/router'
+import NavBar from '../components/NavBar'
 import Link from 'next/link'
 
-const Home: NextPage = () => {
-  const router = useRouter()
-  const { session } = useAuth()
+export default function Overview() {
   const [ExistingOrgs, setExistingOrgs] = useState(false) //replacement until we add the user.organization and user.projects parameters
   const orgArray = ['Org Name', 'Org Name 2']
   const projectArray = ['Project Name', 'Project Name 2', 'Project Name 3']
 
-  useEffect(() => {
-    if (session == null) {
-      router.push('/login')
-    }
-  })
-
   return (
     <div>
       <Head>
-        <title>Custodi</title>
+        <title>Organization Overview</title>
       </Head>
       <NavBar />
       <div className="max-w-5xl mx-auto font-sans">
@@ -89,5 +79,3 @@ const Home: NextPage = () => {
     </div>
   )
 }
-
-export default Home

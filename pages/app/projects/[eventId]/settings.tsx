@@ -6,7 +6,7 @@ import DashboardLayout from '../../../../components/DashboardLayout'
 import { useAuth } from '../../../../hooks/useAuth'
 import { paths } from '../../../../utils/paths'
 
-const ProjectSettings: NextPage = () => {
+const ProjectSettings = () => {
   const router = useRouter()
   const { session } = useAuth({ nonLoggedInRedirect: paths.login() })
 

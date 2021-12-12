@@ -4,12 +4,16 @@ import Image from 'next/image'
 import Icon from '../public/Icon.png'
 import { UserCircleIcon, LogoutIcon } from '@heroicons/react/outline'
 import { useClient } from 'react-supabase'
+import { useRouter } from 'next/router'
+import { useAuth } from '../hooks/useAuth'
 
 export default function NavBar() {
   const supabase = useClient()
-  const [optionsMenu, setoptionsMenu] = useState(false)
+  const [showOptionsMenu, setShowOptionsMenu] = useState(false)
+  const { user } = useAuth()
+  const router = useRouter()
   return (
-    <div className="flex flex-row justify-between m-4 text-gray-800 border-b">
+    <div className="flex flex-row justify-between p-4 text-gray-800 border-b">
       <Link href="/">
         <a className="font-bold text-2xl self-center mx-8">Custodi</a>
       </Link>
@@ -17,6 +21,7 @@ export default function NavBar() {
         <Link href="/">
           <a className="font-semibold text-xl self-center mx-12">Docs</a>
         </Link>
+        {user && <span className="self-center mr-6">{user.email}</span>}
         <Image
           src={Icon}
           alt="User profile photo"
@@ -24,14 +29,17 @@ export default function NavBar() {
           height={42}
           className="rounded-full"
           onClick={() => {
-            setoptionsMenu(!optionsMenu)
+            setShowOptionsMenu(!showOptionsMenu)
           }}
         />
-        {optionsMenu && (
-          <div className="absolute my-10 border flex flex-col rounded-lg border-primary bg-white p-1">
+        {showOptionsMenu && (
+          <div
+            className="absolute my-10 border flex flex-col rounded-lg border-primary bg-white p-1"
+            onMouseLeave={() => setShowOptionsMenu(false)}
+          >
             <div className="m-0.5 mx-1 flex text-center hover:opacity-60">
               <Link href="/">
-                <a className="flex">
+                <a className="flex" onClick={() => router.push('/account')}>
                   <UserCircleIcon className="h-6 w-6" />
                   <span className="font-semibold text-sm ml-2">Account Settings</span>
                 </a>
@@ -43,7 +51,7 @@ export default function NavBar() {
                   <LogoutIcon className="h-6 w-6" />
                   <span
                     className="font-semibold text-sm ml-2"
-                    onClick={() => supabase.auth.signOut()}
+                    onClick={async () => await supabase.auth.signOut()}
                   >
                     Logout
                   </span>

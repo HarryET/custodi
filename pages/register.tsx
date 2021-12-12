@@ -9,6 +9,7 @@ import OauthProviders from '../components/OauthProvider'
 import { emailErrorMessageForType, passwordErrorMessageForType } from './login'
 import { useAuth } from '../hooks/useAuth'
 import { useEffect } from 'react'
+import { paths } from '../utils/paths'
 
 type RegisterInputs = {
   email: string
@@ -22,7 +23,7 @@ export const tosErrorMessageForType = () => {
 
 const Register: NextPage = () => {
   const router = useRouter()
-  const { isLoading: isUserLoading, session } = useAuth()
+  const { isLoading: isUserLoading, session } = useAuth({ loggedInRedirect: paths.overview() })
   useEffect(() => {
     if (!isUserLoading && session) router.replace('/app')
   }, [isUserLoading, router, session])
@@ -59,7 +60,7 @@ const Register: NextPage = () => {
       icon: '⚠️',
     })
 
-    router.push('/login')
+    router.push(paths.login())
   }
 
   return (

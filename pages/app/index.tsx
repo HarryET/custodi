@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useQuery } from 'react-query'
 import { useClient } from 'react-supabase'
@@ -8,10 +8,12 @@ import { OrganizationWithProjects } from '../../types'
 import NavBar from '../../components/NavBar'
 import Button from '../../components/Button'
 import { useAuth } from '../../hooks/useAuth'
+import { paths } from '../../utils/paths'
 
 export default function Overview() {
   const supabase = useClient()
-  useAuth()
+  const router = useRouter()
+  useAuth({ nonLoggedInRedirect: paths.login() })
   const { data: organizationsRes } = useQuery(
     'organizations',
     async () =>
@@ -56,23 +58,22 @@ export default function Overview() {
           <div>
             {/* MAP AN ARRAY TO DISPLAY SEVERAL ORGS and THE PROJECTS OF THOSE ORGS */}
             <ul className="flex flex-col">
-              {organizationsWithProjects.map((orgItem, index) => (
-                <li key={index} className="mb-10">
-                  <div>
-                    <label className="text-2xl">{orgItem.name}</label>
-                    <ul className="flex flex-row mt-5 ">
-                      {orgItem.projects.map((projectItem, index) => (
-                        <li
-                          key={index}
-                          className="border rounded-2xl border-gray-300 px-20 py-12 mr-8"
-                        >
-                          <div>
-                            <label className="text-xl">{projectItem.name}</label>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+              {organizationsWithProjects.map((organization) => (
+                <li key={organization.id} className="mb-10">
+                  <label className="text-2xl">{organization.name}</label>
+                  <ul className="flex flex-row mt-5 ">
+                    {organization.projects.map((project) => (
+                      <li
+                        key={project.id}
+                        className="border rounded-2xl border-gray-300 px-20 py-12 mr-8 cursor-pointer"
+                        onClick={() => router.push(paths.projectOverview(project.id))}
+                      >
+                        <div>
+                          <span className="text-xl">{project.name}</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
                 </li>
               ))}
             </ul>

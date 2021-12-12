@@ -8,6 +8,7 @@ import Link from 'next/link'
 import OauthProviders from '../components/OauthProvider'
 import { useAuth } from '../hooks/useAuth'
 import { useEffect } from 'react'
+import { paths } from '../utils/paths'
 
 type LoginInputs = {
   email: string
@@ -16,10 +17,7 @@ type LoginInputs = {
 
 const Login: NextPage = () => {
   const router = useRouter()
-  const { isLoading: isUserLoading, session } = useAuth()
-  useEffect(() => {
-    if (!isUserLoading && session) router.replace('/app')
-  }, [isUserLoading, router, session])
+  const { isLoading: isUserLoading, session } = useAuth({ loggedInRedirect: paths.overview() })
   const {
     register,
     handleSubmit,
@@ -50,7 +48,7 @@ const Login: NextPage = () => {
       position: 'top-right',
       icon: '✅',
     })
-    router.push('/app')
+    router.push(paths.overview())
   }
 
   return (

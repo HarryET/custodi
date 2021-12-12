@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
 import { ArrowNarrowLeftIcon, UserCircleIcon } from '@heroicons/react/outline'
-import NavBar from '../../../../components/NavBar'
+import NavBar from '../../../components/NavBar'
 import { useRouter } from 'next/router'
 
 export default function OrgSettings() {

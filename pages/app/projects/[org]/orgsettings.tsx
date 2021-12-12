@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
 import { ArrowNarrowLeftIcon, UserCircleIcon } from '@heroicons/react/outline'
-import NavBar from '../../components/NavBar'
+import NavBar from '../../../../components/NavBar'
 import { useRouter } from 'next/router'
 
 export default function OrgSettings() {
@@ -52,10 +52,10 @@ export default function OrgSettings() {
           <label className=" w-4/5 font-semibold text-4xl">{orgName} Settings</label>
         </div>
         <div className="max-w-lg relative">
-          <div>
+          <div className="flex flex-col ">
             <label className="text-lg text-gray-500">Organization Name</label>
             <input
-              className="rounded-lg h-10 border-gray-300 border block mb-6 mt-2 px-28"
+              className="rounded-lg h-10 border-gray-300 border block mb-6 mt-2 pl-1"
               type="text"
               placeholder={orgName}
             ></input>
@@ -76,7 +76,7 @@ export default function OrgSettings() {
             <label className="text-lg text-gray-500">Organization Members</label>
             <div className="flex flex-row justify-center items-center">
               <input
-                className="rounded-lg h-10 border-gray-300 border block mb-6 mt-2 px-7 w-3/4"
+                className="rounded-lg h-10 border-gray-300 border block mb-6 mt-2 pl-1 w-3/4"
                 placeholder="User Email"
               ></input>
               <div className="w-1/4 mx-auto">

@@ -56,7 +56,8 @@ export default function OrgSettings() {
             <label className="text-lg text-gray-500">Organization Name</label>
             <input
               className="rounded-lg h-10 border-gray-300 border block mb-6 mt-2 px-28"
-              value=""
+              type="text"
+              placeholder={orgName}
             ></input>
             <div className="flex flex-row">
               <label className="border h-28 w-28 bg-gray-500 rounded-xl">Image</label>

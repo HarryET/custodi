@@ -2,5 +2,7 @@ export const paths = {
   login: () => '/login',
   accountSettings: () => '/account',
   overview: () => '/app',
-  projectOverview: (projectId: number) => `/app/projects/${projectId}`,
+  projectOverview: (projectId: string | number) => `/app/projects/${projectId}`,
+  docs: () => '/docs',
+  events: (projectId: string | number) => `/app/projects/${projectId}/events`,
 }

@@ -9,6 +9,7 @@ import NavBar from '../../components/NavBar'
 import Button from '../../components/Button'
 import { useAuth } from '../../hooks/useAuth'
 import { paths } from '../../utils/paths'
+import DashboardLayout from '../../components/DashboardLayout'
 
 export default function Overview() {
   const supabase = useClient()
@@ -27,7 +28,6 @@ export default function Overview() {
       <Head>
         <title>Organization Overview</title>
       </Head>
-      <NavBar />
       <div className="max-w-5xl mx-auto font-sans">
         <div className="text-semibold mt-20 mb-5">
           <h1 className=" text-4xl mt-20 mb-11 ">Organizations</h1>
@@ -82,4 +82,8 @@ export default function Overview() {
       </div>
     </div>
   )
+}
+
+Overview.getLayout = (page: React.ReactNode) => {
+  return <DashboardLayout>{page}</DashboardLayout>
 }

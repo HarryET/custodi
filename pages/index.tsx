@@ -3,8 +3,11 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import Header from '../components/Header'
+import { useAuth } from '../hooks/useAuth'
+import { paths } from '../utils/paths'
 
 const Home: NextPage = () => {
+  useAuth({ loggedInRedirect: paths.overview() })
   return (
     <>
       <Head>

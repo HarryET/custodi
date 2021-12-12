@@ -1,6 +1,7 @@
 import { PencilIcon } from '@heroicons/react/outline'
 import React, { useState } from 'react'
 import Button from '../components/Button'
+import DashboardLayout from '../components/DashboardLayout'
 import Input from '../components/Input'
 import Modal from '../components/Modal'
 
@@ -13,7 +14,7 @@ export default function Account() {
 
   return (
     <div>
-      <h1 className="text-center text-4xl font-semibold mb-10">Account Settings</h1>
+      <h1 className="text-center text-4xl font-semibold my-10">Account Settings</h1>
 
       <div className="md:flex container justify-center mx-auto">
         <div className="flex flex-col justify-center items-center">
@@ -106,3 +107,7 @@ const ChangePasswordModal = ({
     <Input id="confirmNewPassword" type="password" label="Confirm New Password" />
   </Modal>
 )
+
+Account.getLayout = (page: React.ReactNode) => {
+  return <DashboardLayout>{page}</DashboardLayout>
+}

@@ -55,6 +55,7 @@ export interface Project {
   organization_id: number
   project_types?: ProjectType
   organizations?: Organization
+  event_groups: EventGroup[]
 }
 
 export interface Transaction {

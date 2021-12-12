@@ -6,6 +6,7 @@ import { UserCircleIcon, LogoutIcon } from '@heroicons/react/outline'
 import { useClient } from 'react-supabase'
 import { useRouter } from 'next/router'
 import { useAuth } from '../hooks/useAuth'
+import { paths } from '../utils/paths'
 
 export default function NavBar() {
   const supabase = useClient()
@@ -18,7 +19,7 @@ export default function NavBar() {
         <a className="font-bold text-2xl self-center mx-8">Custodi</a>
       </Link>
       <div className="flex flex-row justify-end px-7">
-        <Link href="/">
+        <Link href={paths.docs()}>
           <a className="font-semibold text-xl self-center mx-12">Docs</a>
         </Link>
         {user && <span className="self-center mr-6">{user.email}</span>}
@@ -38,25 +39,21 @@ export default function NavBar() {
             onMouseLeave={() => setShowOptionsMenu(false)}
           >
             <div className="m-0.5 mx-1 flex text-center hover:opacity-60">
-              <Link href="/">
-                <a className="flex" onClick={() => router.push('/account')}>
-                  <UserCircleIcon className="h-6 w-6" />
-                  <span className="font-semibold text-sm ml-2">Account Settings</span>
-                </a>
-              </Link>
+              <a className="flex" onClick={() => router.push(paths.accountSettings())}>
+                <UserCircleIcon className="h-6 w-6" />
+                <span className="font-semibold text-sm ml-2">Account Settings</span>
+              </a>
             </div>
             <div className="m-0.5 mx-1 flex text-center hover:opacity-60">
-              <Link href="/">
-                <a className="flex">
-                  <LogoutIcon className="h-6 w-6" />
-                  <span
-                    className="font-semibold text-sm ml-2"
-                    onClick={async () => await supabase.auth.signOut()}
-                  >
-                    Logout
-                  </span>
-                </a>
-              </Link>
+              <a className="flex">
+                <LogoutIcon className="h-6 w-6" />
+                <span
+                  className="font-semibold text-sm ml-2"
+                  onClick={async () => await supabase.auth.signOut()}
+                >
+                  Logout
+                </span>
+              </a>
             </div>
           </div>
         )}

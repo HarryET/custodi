@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Header from '../components/Header'
 
-const Register: NextPage = () => {
+const ErrorPage: NextPage = () => {
   return (
     <>
       <Head>
@@ -30,4 +30,4 @@ const Register: NextPage = () => {
   )
 }
 
-export default Register
+export default ErrorPage

@@ -22,7 +22,7 @@ The main feature of Supabase we utilized is the realtime API to monitor events f
 We also used Supabase for auth, storing user profile photos, and storing events.
 
 ## License
-Copyright (C) 2021 Harry Bairstow, Isaiah Hamilton, Victor Peralta, Aiden Schrock, and Contributors
+Copyright (C) 2021 Harry Bairstow, Isaiah Hamilton, Victor Peralta, Rodrigo Peralta, Aiden Schrock, and Contributors
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 

@@ -53,13 +53,10 @@ function EventCard({ eventGroup }: { eventGroup: EventGroup }) {
   return (
     <div className="border border-l-8 border-red-600 p-4 mt-8">
       <div className="flex justify-between items-baseline mb-2">
-        <div className="font-bold text-2xl">Cannot read properties of undefined (reading 'id')</div>
-        <div className="text-gray-500">2 minutes ago</div>
+        <div className="font-bold text-2xl">{eventGroup.title}</div>
+        <div className="text-gray-500">{eventGroup.created_at}</div>
       </div>
-      <div>
-        at Overview (webpack-internal:///./pages/app/projects/[eventId]/events.tsx:61:77) at div at
-        DashboardLayout{' '}
-      </div>
+      <div>{eventGroup.trace}</div>
     </div>
   )
 }

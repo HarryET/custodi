@@ -1,4 +1,5 @@
 import { Session, User } from '@supabase/gotrue-js'
+import router from 'next/router'
 import { createContext, useEffect, useState } from 'react'
 import { useAuthStateChange, useClient } from 'react-supabase'
 
@@ -21,7 +22,15 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, [client.auth])
 
   useAuthStateChange((event, session) => {
-    setState({ session, user: session?.user ?? null, isLoading: false })
+    console.log(`Supbase auth event: ${event}`, session)
+    if (event === 'PASSWORD_RECOVERY') {
+      router.push({
+        pathname: '/reset-password-form',
+        query: { access_token: session?.access_token },
+      })
+    } else {
+      setState({ session, user: session?.user ?? null, isLoading: false })
+    }
   })
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>

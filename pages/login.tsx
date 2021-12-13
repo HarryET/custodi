@@ -95,7 +95,7 @@ const Login: NextPage = () => {
               {errors.password && <span>{passwordErrorMessageForType(errors.password.type)}</span>}
             </div>
             {/* TODO: change link to forgot page */}
-            <Link href="/">
+            <Link href="/forgot-password">
               <a className="text-primary text-sm place-self-end">Forgot password?</a>
             </Link>
             <div className="w-full flex flex-col items-end">

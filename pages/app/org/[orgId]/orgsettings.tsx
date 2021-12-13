@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
 import { ArrowNarrowLeftIcon, UserCircleIcon } from '@heroicons/react/outline'
-import NavBar from '../../../components/NavBar'
+import NavBar from '../../../../components/NavBar'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+
 
 export default function OrgSettings() {
   const router = useRouter()
@@ -43,10 +45,10 @@ export default function OrgSettings() {
         </div>
       )}
       <div className="max-w-6xl container mx-auto flex flex-col items-center justify-center relative">
-        <div className="w-3/4 flex flex-row justify-center items-center mb-24 relative">
-          <div className="w-1/5 mt-1">
-            <button>
-              <ArrowNarrowLeftIcon className=" h-6 w-6" />
+        <div className="w-3/4 flex flex-row justify-center items-center mt-12 mb-24 relative">
+          <div className="w-1/5">
+            <button className="items-center">
+              <ArrowNarrowLeftIcon className=" h-8 w-8" />
             </button>
           </div>
           <label className=" w-4/5 font-semibold text-4xl">{orgName} Settings</label>
@@ -60,7 +62,9 @@ export default function OrgSettings() {
               placeholder={orgName}
             ></input>
             <div className="flex flex-row">
-              <label className="border h-28 w-28 bg-gray-500 rounded-xl">Image</label>
+              <div className="flex border h-28 w-28 bg-white rounded-full justify-center">
+                <Image src="/assets/custodi-logo-62.svg" width={80} height={80} alt="profile picture"/>
+              </div>
               <div className="flex flex-col justify-around items-center px-8">
                 <label className="text-lg">Organization Avatar</label>
                 <button

@@ -9,7 +9,7 @@ const OauthProviders = () => {
   const [{}, signIn] = useSignIn()
 
   const handleProviderClick = (provider: Provider) => {
-    signIn({ provider }, {})
+    signIn({ provider }, { redirectTo: '/' })
   }
 
   return (

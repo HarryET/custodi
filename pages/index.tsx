@@ -1,10 +1,14 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 import Link from 'next/link'
 import Header from '../components/Header'
+import { useAuth } from '../hooks/useAuth'
+import { paths } from '../utils/paths'
 import ProductDemoImg from '../public/assets/product-demo-img'
 
 const Home: NextPage = () => {
+  useAuth({ loggedInRedirect: paths.overview() })
   return (
     <>
       <Head>

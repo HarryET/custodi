@@ -38,3 +38,6 @@ yarn-error.log*
 
 # secrets
 .env
+
+# vscode
+.vscode

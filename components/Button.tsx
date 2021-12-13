@@ -1,61 +1,23 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from 'react'
 
-//! WARNING: Demo Component, not in use.
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  kind?: 'primary' | 'link' | 'outline'
+}
 
-type ButtonProps = {
-    size: 'sm' | 'md' | 'lg';
-    style: 'primary' | 'secondary' | 'ghost';
-    text?: string
-    icon?: string
-};
+export default function Button({ children, kind = 'primary', ...props }: Props) {
+  let btnClass =
+    'py-2 px-4 bg-primary text-gray-50 rounded-lg hover:bg-secondary cursor-pointer transition duration-500 ease-in-out'
 
-const Button: React.FC<ButtonProps> = ({size, style, text, icon}) => {
-    const ContentTextOnly: React.FC = () => {
-        return (
-            <p>{text!}</p>
-        );
-    }
-
-    const ContentIconOnly: React.FC = () => {
-        return (
-            <p>{icon!}</p>
-        );
-    }
-
-    const ContentTextAndIcon: React.FC = () => {
-        return (
-            <div className="flex flex-row space-x-2 items-center content-center">
-                <ContentTextOnly />
-                <ContentIconOnly />
-            </div>
-        );
-    }
-
-    const Content: React.FC = () => {
-        if(text != null && icon != null) {
-            return <ContentTextAndIcon />
-        } else if (icon != null && text == null) {
-            return <ContentIconOnly />
-        } else {
-            return <ContentTextOnly />
-        }
-    }
-
-    const size_classes = size == 'sm' 
-        ? "" /* Small Styles */ 
-        : size == 'md' 
-            ? "" /* Medium Styles */
-            : "" /* Large Styles */;
-
-    const colour_classes = style == 'primary'
-        ? "bg-primary" /* Primary Styles */
-        : style == 'secondary'
-            ? "bg-secondary" /* Secondary Styles */
-            : "bg-transparent" /* Ghost Styles */
-
-    return (
-        <button className={`${colour_classes} ${size_classes}`}>
-            <Content />
-        </button>
-    );
+  if (kind === 'link') {
+    btnClass =
+      'p-2  text-primary cursor-pointer hover:text-secondary transition duration-500 ease-in-out'
+  } else if (kind === 'outline') {
+    btnClass =
+      'py-2 px-4 border-gray-300 border rounded-lg cursor-pointer hover:bg-gray-300 transition duration-500 ease-in-out'
+  }
+  return (
+    <button {...props} className={`${btnClass} ${props.className}`}>
+      {children}
+    </button>
+  )
 }
